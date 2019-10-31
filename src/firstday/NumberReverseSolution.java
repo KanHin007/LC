@@ -63,11 +63,36 @@ public class NumberReverseSolution {
     }
 
 
+    /**
+     * 直接利用列项的时候 将结果加上去
+     * todo 这里是看到别人的解法
+     *
+     * @param x
+     * @return
+     */
+    public static int reverseBySimple(int x) {
+        if (x == 0) {
+            return 0;
+        }
+
+        long result = 0;
+        while (x != 0) {
+            int s = x % 10;
+            x = x / 10;
+            result = result * 10 + s;
+        }
+        if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
+            return 0;
+        }
+        return (int) result;
+    }
+
+
     public static void main(String[] args) {
-        //     System.out.println(reverse(123));
-        //     System.out.println(reverse(120));
-        //     System.out.println(reverse(-120));
-        System.out.println(reverse(901000));
+        System.out.println(reverse(123));
+        System.out.println(reverse(120));
+        System.out.println(reverse(-120));
+        System.out.println(reverseBySimple(901000));
     }
 
 }
