@@ -73,7 +73,7 @@ public class IntToRomanSolution {
                     }
                 }
                 while (yuShu > 0) {
-                    sb.append( "I");
+                    sb.append("I");
                     yuShu--;
                 }
             } else if (weiShu == 2) {
@@ -90,7 +90,7 @@ public class IntToRomanSolution {
                     }
                 }
                 while (yuShu > 0) {
-                    sb.append( "X");
+                    sb.append("X");
                     yuShu--;
                 }
             } else if (weiShu == 3) {
@@ -118,15 +118,39 @@ public class IntToRomanSolution {
             }
 
             weiShu++;
-            sbResult.insert(0,sb);
+            sbResult.insert(0, sb);
         }
 
 
         return sbResult.toString();
     }
 
+
+    /**
+     * 利用贪心算法解决这个问题
+     *
+     * @param num
+     * @return
+     */
+    public static String intToRomanByGreed(int num) {
+        StringBuilder sb = new StringBuilder();
+        // 初始化数组
+        String[] strArr = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] numArr = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        int subtract = num;
+        for (int i = 0; i < strArr.length; ) {
+            if (numArr[i] <= subtract) {
+                subtract -= numArr[i];
+                sb.append(strArr[i]);
+            } else {
+                i++;
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        System.out.println(intToRoman(58));
+        System.out.println(intToRomanByGreed(1994));
     }
 
 
