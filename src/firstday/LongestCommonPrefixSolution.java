@@ -79,13 +79,58 @@ public class LongestCommonPrefixSolution {
                 return leftStr.substring(0, i);
             }
         }
-        return leftStr.substring(0,len);
+        return leftStr.substring(0, len);
+    }
+
+    /**
+     * 利用二分法解决问题
+     *
+     * @return
+     */
+    public static String longestCommonPrefixByTwoPartition(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        } else {
+            int left = 0;
+            // 负值给right最大的索引
+            int right = Integer.MAX_VALUE;
+            // 这里拿到最小的字符串
+            for (String sub : strs) {
+                if (sub.length() < right) {
+                    right = sub.length();
+                }
+            }
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (twoPartitionSolve(strs, mid)) {
+                    // mid 不断进行右移操作
+                    left = mid + 1;
+                } else {
+                    // mid 朝相反方向进行移位
+                    right = mid - 1;
+                }
+            }
+
+            return strs[0].substring(0, (left + right) / 2);
+
+        }
+
+
+    }
+
+    public static boolean twoPartitionSolve(String[] strs, int len) {
+        for (String sub : strs) {
+            if (!sub.contains(strs[0].substring(0, len))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
     public static void main(String[] args) {
-      //  String[] arr = {"flower", "flow", "flight"};
-      //  System.out.println(longestCommonPrefixByPartion(arr));
+        //  String[] arr = {"flower", "flow", "flight"};
+        //  System.out.println(longestCommonPrefixByPartion(arr));
 
         String[] arr1 = {"aa", "a"};
         System.out.println(longestCommonPrefixByPartion(arr1));
